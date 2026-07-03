@@ -1,0 +1,1 @@
+﻿import mongoose, { Schema } from 'mongoose'; export default mongoose.model('ActivityLog', new Schema({ user: { type: Schema.Types.ObjectId, ref: 'User' }, action: String, details: Object }, { strict: false, timestamps: true }));
