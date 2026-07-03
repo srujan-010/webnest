@@ -21,7 +21,7 @@ export function createCrudController(Model: Model<any>, modelName: string, optio
       const skip = (Number(page) - 1) * Number(limit);
       let query = Model.find(filter).sort({ order: 1, createdAt: -1 }).skip(skip).limit(Number(limit));
       if (options?.populate) {
-        query = query.populate(options.populate);
+        query = query.populate(options.populate as any);
       }
 
       const [data, total] = await Promise.all([
@@ -38,10 +38,10 @@ export function createCrudController(Model: Model<any>, modelName: string, optio
   const getById = async (req: Request, res: Response) => {
     try {
       let item = null;
-      if (/^[0-9a-fA-F]{24}$/.test(req.params.id)) {
+      if (/^[0-9a-fA-F]{24}$/.test(req.params.id as string)) {
         let query = Model.findById(req.params.id);
         if (options?.populate) {
-          query = query.populate(options.populate);
+          query = query.populate(options.populate as any);
         }
         item = await query;
       }
@@ -50,7 +50,7 @@ export function createCrudController(Model: Model<any>, modelName: string, optio
       if (!item && Model.schema.path('slug')) {
         let query = Model.findOne({ slug: req.params.id });
         if (options?.populate) {
-          query = query.populate(options.populate);
+          query = query.populate(options.populate as any);
         }
         item = await query;
       }
@@ -66,7 +66,7 @@ export function createCrudController(Model: Model<any>, modelName: string, optio
     try {
       let item = await Model.create(req.body);
       if (options?.populate) {
-        item = await item.populate(options.populate);
+        item = await item.populate(options.populate as any);
       }
       await AuditLog.create({
         userId: req.user._id,
@@ -106,7 +106,7 @@ export function createCrudController(Model: Model<any>, modelName: string, optio
       // Save document (triggers pre('save') hooks!)
       let item = await before.save();
       if (options?.populate) {
-        item = await item.populate(options.populate);
+        item = await item.populate(options.populate as any);
       }
       const after = item.toObject();
 
