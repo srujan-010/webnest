@@ -45,7 +45,7 @@ connectDB();
 // Secuity middleware
 app.use(helmet());
 app.use(cors({
-  origin: [CLIENT_URL, 'http://localhost:3000', 'http://localhost:3001'],
+  origin: [CLIENT_URL, 'http://localhost:3000', 'http://localhost:3001', 'https://webnestindia.netlify.app'],
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
