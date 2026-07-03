@@ -34,6 +34,7 @@ import seoRoutes from './routes/seo';
 import mediaRoutes from './routes/media';
 import contactRoutes from './routes/contact';
 import newsletterRoutes from './routes/newsletter';
+import aboutPageRoutes from './routes/aboutPage';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -82,6 +83,7 @@ app.use('/api/clients', clientsRoutes);
 app.use('/api/why-us', whyUsRoutes);
 app.use('/api/seo', seoRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/about-page', aboutPageRoutes);
 // Rate limiters for public forms
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

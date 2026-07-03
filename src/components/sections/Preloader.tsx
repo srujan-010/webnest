@@ -3,8 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
 
+const statuses = [
+  "Initializing Experience...",
+  "Loading Components...",
+  "Optimizing Assets...",
+  "Preparing Interface...",
+  "Launching WebNest..."
+];
+
 export function Preloader() {
   const [isOverlayRemoved, setIsOverlayRemoved] = useState(false);
+  const [statusIndex, setStatusIndex] = useState(0);
   const overlayRef = useRef<HTMLDivElement>(null);
   const laptopRef = useRef<HTMLDivElement>(null);
   const lidRef = useRef<HTMLDivElement>(null);
@@ -106,6 +115,11 @@ export function Preloader() {
     };
     document.addEventListener('keydown', onKey);
 
+    /* Status text animation */
+    const statusInt = setInterval(() => {
+      setStatusIndex(prev => (prev < statuses.length - 1 ? prev + 1 : prev));
+    }, 1000);
+
     /* ═══════════════════════════════════════
        TIMELINE
     ═══════════════════════════════════════ */
@@ -191,6 +205,7 @@ export function Preloader() {
     window.addEventListener('scroll', hideOnScroll, { passive: true });
 
     return () => {
+      clearInterval(statusInt);
       cancelAll();
       document.removeEventListener('keydown', onKey);
       window.removeEventListener('scroll', hideOnScroll);
@@ -205,92 +220,114 @@ export function Preloader() {
         <div 
           ref={overlayRef} 
           id="intro-overlay" 
-          className="fixed inset-0 z-[100] bg-ink-900 flex items-center justify-center transition-opacity duration-[700ms]"
+          className="fixed inset-0 z-[100] bg-[radial-gradient(circle_at_center,#1B2D52_0%,#14213D_45%,#0D1830_100%)] flex items-center justify-center transition-opacity duration-[700ms]"
         >
+          {/* Ambient Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-500/10 rounded-full blur-[120px] animate-[pulse_4s_ease-in-out_infinite] pointer-events-none"></div>
+
           <div 
             ref={sceneRef} 
-          id="intro-scene" 
-          className="relative perspective-[1500px] w-full h-full flex items-center justify-center transition-transform duration-[1000ms] ease-[cubic-bezier(0.8,0,0.2,1)]"
-        >
-          {/* Laptop */}
-          <div 
-            ref={laptopRef} 
-            id="intro-laptop" 
-            className="relative w-[300px] sm:w-[400px] md:w-[600px] aspect-[16/10] transform-style-3d opacity-0 translate-y-12 transition-all duration-1000 ease-out"
+            id="intro-scene" 
+            className="relative perspective-[1500px] w-full h-full flex items-center justify-center transition-transform duration-[1000ms] ease-[cubic-bezier(0.8,0,0.2,1)]"
           >
-            {/* Lid */}
+            {/* Laptop */}
             <div 
-              ref={lidRef} 
-              id="intro-lid" 
-              className="absolute bottom-0 left-0 w-full h-full origin-bottom transform-style-3d rotate-x-[-95deg] transition-transform duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] rounded-t-[20px] bg-gray-900 border-[6px] border-gray-800 shadow-2xl"
+              ref={laptopRef} 
+              id="intro-laptop" 
+              className="relative w-[300px] sm:w-[400px] md:w-[600px] aspect-[16/10] transform-style-3d opacity-0 translate-y-12 transition-all duration-1000 ease-out"
             >
-              {/* Screen Content */}
+              {/* Lid */}
               <div 
-                ref={screenRef} 
-                id="intro-screen" 
-                className="absolute inset-0.5 bg-black overflow-hidden flex items-center justify-center rounded-t-[14px] transition-shadow duration-[1000ms]"
+                ref={lidRef} 
+                id="intro-lid" 
+                className="absolute bottom-0 left-0 w-full h-full origin-bottom transform-style-3d rotate-x-[-95deg] transition-transform duration-[2000ms] ease-[cubic-bezier(0.25,1,0.5,1)] rounded-t-[20px] bg-gray-900 border-[4px] border-gray-700 shadow-2xl"
               >
-                {/* Flash */}
+                {/* Screen Content */}
                 <div 
-                  ref={flashRef} 
-                  id="intro-flash" 
-                  className="absolute inset-0 bg-white opacity-0 z-20 pointer-events-none"
-                ></div>
-                
-                {/* Display */}
-                <div 
-                  ref={displayRef} 
-                  id="intro-display" 
-                  className="relative z-10 flex flex-col items-center opacity-0 transition-opacity duration-[800ms]"
+                  ref={screenRef} 
+                  id="intro-screen" 
+                  className="absolute inset-0.5 bg-[linear-gradient(180deg,#31486F_0%,#22324F_60%,#18263D_100%)] overflow-hidden flex items-center justify-center rounded-t-[14px] transition-shadow duration-[1000ms] shadow-[0_0_30px_rgba(59,130,246,0.15)]"
                 >
+                  {/* Glass Reflection */}
+                  <div className="absolute top-0 left-0 w-[150%] h-[150%] bg-gradient-to-tr from-transparent via-white/5 to-transparent -rotate-12 translate-x-[-50%] translate-y-[-50%] pointer-events-none"></div>
+
+                  {/* Flash */}
                   <div 
-                    ref={logoTextRef} 
-                    id="intro-logo-text" 
-                    className="opacity-0 translate-y-8 flex justify-center"
-                  >
-                    <img src="https://res.cloudinary.com/dixbhnqnf/image/upload/v1783074928/WhatsApp_Image_2026-07-03_at_3.48.58_PM-Photoroom_gk5hxf.png" alt="WebNest Logo" className="h-24 md:h-32 object-contain drop-shadow-2xl" />
-                  </div>
-                  <div 
-                    ref={logoSubRef} 
-                    id="intro-logo-sub" 
-                    className="text-xs md:text-sm font-medium text-brand-400 mt-2 opacity-0 tracking-[0.3em] uppercase transition-all duration-[800ms]"
-                  >
-                    Premium Agency
-                  </div>
+                    ref={flashRef} 
+                    id="intro-flash" 
+                    className="absolute inset-0 bg-white opacity-0 z-20 pointer-events-none"
+                  ></div>
                   
-                  {/* Progress Bar */}
+                  {/* Display */}
                   <div 
-                    ref={barRef} 
-                    id="intro-bar" 
-                    className="w-48 h-1 bg-white/10 mt-8 rounded-full overflow-hidden opacity-0 transition-opacity duration-500"
+                    ref={displayRef} 
+                    id="intro-display" 
+                    className="relative z-10 flex flex-col items-center opacity-0 transition-opacity duration-[800ms] w-full"
                   >
                     <div 
-                      ref={barFillRef} 
-                      id="intro-bar-fill" 
-                      className="h-full bg-brand-500 w-0 transition-all duration-[1500ms] ease-[cubic-bezier(0.4,0,0.2,1)]"
-                    ></div>
+                      ref={logoTextRef} 
+                      id="intro-logo-text" 
+                      className="opacity-0 translate-y-8 flex justify-center"
+                    >
+                      <img src="https://res.cloudinary.com/dixbhnqnf/image/upload/v1783074928/WhatsApp_Image_2026-07-03_at_3.48.58_PM-Photoroom_gk5hxf.png" alt="WebNest Logo" className="h-24 md:h-32 object-contain filter brightness-[1.15] contrast-[1.15] drop-shadow-[0_0_20px_rgba(59,130,246,0.35)]" />
+                    </div>
+                    <div 
+                      ref={logoSubRef} 
+                      id="intro-logo-sub" 
+                      className="text-xs md:text-sm font-semibold text-[#A7D2FF] mt-2 opacity-0 tracking-[0.4em] uppercase transition-all duration-[800ms] drop-shadow-[0_0_8px_rgba(167,210,255,0.4)]"
+                    >
+                      Premium Agency
+                    </div>
+                    
+                    {/* Progress Bar */}
+                    <div 
+                      ref={barRef} 
+                      id="intro-bar" 
+                      className="w-48 h-1.5 bg-white/10 mt-8 rounded-full overflow-hidden opacity-0 transition-opacity duration-500 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                    >
+                      <div 
+                        ref={barFillRef} 
+                        id="intro-bar-fill" 
+                        className="relative h-full bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#2563EB] w-0 transition-all duration-[1500ms] ease-[cubic-bezier(0.4,0,0.2,1)] rounded-full overflow-hidden"
+                      >
+                         <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-[pulse_1.5s_infinite] -translate-x-1/2"></div>
+                      </div>
+                    </div>
+
+                    {/* Status Text */}
+                    <div className="mt-4 h-4 relative w-full flex justify-center">
+                      {statuses.map((status, i) => (
+                        <span 
+                          key={i} 
+                          className={`absolute text-[10px] uppercase tracking-widest text-[#A7D2FF]/60 transition-opacity duration-500 ${i === statusIndex ? 'opacity-100' : 'opacity-0'}`}
+                        >
+                          {status}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Laptop Base */}
-            <div className="absolute top-full left-[-2%] w-[104%] h-[12px] bg-gray-200 rounded-b-[16px] rounded-t-sm flex justify-center shadow-[0_40px_60px_-10px_rgba(0,0,0,0.7)] border-b-4 border-gray-300">
-               {/* Trackpad indentation */}
-               <div className="w-1/4 h-1 bg-gray-300 rounded-b-md"></div>
+              {/* Laptop Base */}
+              <div className="absolute top-full left-[-2%] w-[104%] h-[12px] bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 rounded-b-[16px] rounded-t-sm flex justify-center shadow-[0_40px_60px_-10px_rgba(0,0,0,0.8)] border-b border-gray-400/50 relative overflow-hidden">
+                 {/* Metallic Highlight */}
+                 <div className="absolute top-0 left-0 w-full h-[1px] bg-white/50"></div>
+                 {/* Trackpad indentation */}
+                 <div className="w-1/4 h-1 bg-gray-400/50 rounded-b-md shadow-inner mt-px"></div>
+              </div>
             </div>
           </div>
+          
+          <button 
+            suppressHydrationWarning
+            ref={skipBtnRef} 
+            id="intro-skip" 
+            className="absolute bottom-10 right-10 text-white/70 hover:text-white text-xs font-medium tracking-widest uppercase opacity-0 transition-all duration-500 border border-white/20 hover:border-white/50 px-5 py-2.5 rounded-full hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] bg-white/5 backdrop-blur-sm"
+          >
+            Skip Intro
+          </button>
         </div>
-        
-        <button 
-          suppressHydrationWarning
-          ref={skipBtnRef} 
-          id="intro-skip" 
-          className="absolute bottom-10 right-10 text-white/40 hover:text-white text-sm font-medium tracking-widest uppercase opacity-0 transition-all duration-500"
-        >
-          Skip Intro
-        </button>
-      </div>
       )}
 
       {/* Scroll Indicator */}

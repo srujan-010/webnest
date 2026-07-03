@@ -184,3 +184,28 @@ export const getSiteSettings = async () => {
     return null;
   }
 };
+
+export const getAboutPage = async () => {
+  try {
+    const res = await fetch(`${API_URL}/about-page`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getAboutPageDraft = async (token: string) => {
+  try {
+    const res = await fetch(`${API_URL}/about-page/draft`, { 
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store' 
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
