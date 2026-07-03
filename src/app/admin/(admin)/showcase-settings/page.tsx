@@ -4,9 +4,9 @@ import { CrudTable, FormField } from "@/components/admin/CrudTable";
 
 export default function AdminShowcaseSettings() {
   const formConfig: FormField[] = [
-    { key: "autoPlay", label: "Auto Play", type: "boolean", hint: "Automatically cycle slides." },
+    { key: "autoPlay", label: "Auto Play", type: "toggle", hint: "Automatically cycle slides." },
     { key: "autoPlayInterval", label: "Auto Play Interval (ms)", type: "number", placeholder: "4500", hint: "Time between transitions." },
-    { key: "infiniteLoop", label: "Infinite Loop", type: "boolean", hint: "Loop back to the start after reaching the last slide." },
+    { key: "infiniteLoop", label: "Infinite Loop", type: "toggle", hint: "Loop back to the start after reaching the last slide." },
     {
       key: "transitionType",
       label: "Transition Type",
@@ -17,8 +17,8 @@ export default function AdminShowcaseSettings() {
       ]
     },
     { key: "transitionSpeed", label: "Transition Speed (ms)", type: "number", placeholder: "400" },
-    { key: "showNavigation", label: "Show Navigation Arrows", type: "boolean" },
-    { key: "showIndicators", label: "Show Indicator Dots", type: "boolean" },
+    { key: "showNavigation", label: "Show Navigation Arrows", type: "toggle" },
+    { key: "showIndicators", label: "Show Indicator Dots", type: "toggle" },
     {
       key: "browserWindowStyle",
       label: "Browser Mockup Style",
