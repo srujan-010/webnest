@@ -29,8 +29,9 @@ const navGroups = [
       { href: "/admin/about", label: "About Page", icon: Star },
       { href: "/admin/services", label: "Services", icon: Layers },
       { href: "/admin/projects", label: "Portfolio", icon: FolderKanban },
+      { href: "/admin/featured-projects-section", label: "Featured Projects Section", icon: FolderKanban },
       { href: "/admin/process", label: "Process", icon: Zap },
-      { href: "/admin/techstack", label: "Technologies", icon: Cpu },
+      { href: "/admin/why-us", label: "Why Us", icon: Cpu },
     ],
   },
   {

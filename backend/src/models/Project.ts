@@ -42,6 +42,35 @@ export interface IProject extends Document {
   testimonialRole?: string;
   testimonialCompany?: string;
   testimonialPhoto?: string;
+
+  // New Case Study Fields
+  role?: string;
+  timeline?: string;
+  businessGoal?: string;
+  targetAudience?: string;
+  industry?: string;
+  platform?: string;
+  
+  clientProblems?: string;
+  businessPainPoints?: string;
+  technicalChallenges?: string;
+  oldWorkflow?: string;
+  limitations?: string;
+
+  solutionCards?: any[]; // Array of { title, description, icon }
+  featureHighlights?: any[]; // Array of { icon, title, description, image }
+  galleryItems?: any[]; // Array of { url, type }
+  designProcess?: any[]; // Array of { title, description, milestone }
+  techStackDetails?: any[]; // Array of { logo, technology, purpose, whySelected, example }
+  lessonsLearned?: any[]; // Array of { challenge, solution, insight }
+  faqs?: any[]; // Array of { question, answer }
+  
+  systemArchitecture?: { image?: string; description?: string };
+  adminPanel?: { description?: string; features?: string[]; screenshots?: string[] };
+  performanceMetrics?: { performance?: number; seo?: number; accessibility?: number; bestPractices?: number };
+  seo?: { metaTitle?: string; metaDescription?: string; keywords?: string };
+  
+  mockupTablet?: string;
 }
 
 const ProjectSchema = new Schema<IProject>({
@@ -86,6 +115,51 @@ const ProjectSchema = new Schema<IProject>({
   testimonialRole: { type: String },
   testimonialCompany: { type: String },
   testimonialPhoto: { type: String },
+
+  // New Case Study Fields
+  role: { type: String },
+  timeline: { type: String },
+  businessGoal: { type: String },
+  targetAudience: { type: String },
+  industry: { type: String },
+  platform: { type: String },
+
+  clientProblems: { type: String },
+  businessPainPoints: { type: String },
+  technicalChallenges: { type: String },
+  oldWorkflow: { type: String },
+  limitations: { type: String },
+
+  solutionCards: [{ type: Schema.Types.Mixed }],
+  featureHighlights: [{ type: Schema.Types.Mixed }],
+  galleryItems: [{ type: Schema.Types.Mixed }],
+  designProcess: [{ type: Schema.Types.Mixed }],
+  techStackDetails: [{ type: Schema.Types.Mixed }],
+  lessonsLearned: [{ type: Schema.Types.Mixed }],
+  faqs: [{ type: Schema.Types.Mixed }],
+
+  systemArchitecture: {
+    image: { type: String },
+    description: { type: String }
+  },
+  adminPanel: {
+    description: { type: String },
+    features: [{ type: String }],
+    screenshots: [{ type: String }]
+  },
+  performanceMetrics: {
+    performance: { type: Number },
+    seo: { type: Number },
+    accessibility: { type: Number },
+    bestPractices: { type: Number }
+  },
+  seo: {
+    metaTitle: { type: String },
+    metaDescription: { type: String },
+    keywords: { type: String }
+  },
+
+  mockupTablet: { type: String }
 }, { timestamps: true });
 
 ProjectSchema.pre('save', function () {

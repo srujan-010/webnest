@@ -134,7 +134,7 @@ export const getFAQs = async () => {
 
 export const getProcessSteps = async () => {
   try {
-    const res = await fetch(`${API_URL}/process`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/process`, { cache: 'no-store' });
     if (!res.ok) return [];
     const json = await res.json();
     return json.data || [];
@@ -207,5 +207,88 @@ export const getAboutPageDraft = async (token: string) => {
     return json.data || null;
   } catch (error) {
     return null;
+  }
+};
+
+export const getWhyUsPage = async () => {
+  try {
+    const res = await fetch(`${API_URL}/why-us-page`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getWhyUsPageDraft = async (token: string) => {
+  try {
+    const res = await fetch(`${API_URL}/why-us-page/draft`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store'
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getFeaturedProjectSection = async () => {
+  try {
+    const res = await fetch(`${API_URL}/featured-project-section`, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getFeaturedProjectSectionDraft = async (token: string) => {
+  try {
+    const res = await fetch(`${API_URL}/featured-project-section/draft`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store'
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return json.data || null;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getPainPoints = async () => {
+  try {
+    const res = await fetch(`${API_URL}/pain-points`, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getEngineeringStandards = async () => {
+  try {
+    const res = await fetch(`${API_URL}/engineering-standards`, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getComparisonRows = async () => {
+  try {
+    const res = await fetch(`${API_URL}/comparison-rows`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const json = await res.json();
+    return json.data || [];
+  } catch (error) {
+    return [];
   }
 };

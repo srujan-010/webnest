@@ -32,10 +32,16 @@ const navigation_1 = __importDefault(require("./routes/navigation"));
 const footer_1 = __importDefault(require("./routes/footer"));
 const clients_1 = __importDefault(require("./routes/clients"));
 const why_us_1 = __importDefault(require("./routes/why-us"));
+const whyUsPage_1 = __importDefault(require("./routes/whyUsPage"));
 const seo_1 = __importDefault(require("./routes/seo"));
 const media_1 = __importDefault(require("./routes/media"));
 const contact_1 = __importDefault(require("./routes/contact"));
 const newsletter_1 = __importDefault(require("./routes/newsletter"));
+const aboutPage_1 = __importDefault(require("./routes/aboutPage"));
+const featuredProjectSection_1 = __importDefault(require("./routes/featuredProjectSection"));
+const painPoints_1 = __importDefault(require("./routes/painPoints"));
+const engineeringStandards_1 = __importDefault(require("./routes/engineeringStandards"));
+const comparisonRows_1 = __importDefault(require("./routes/comparisonRows"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
@@ -44,7 +50,7 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 // Secuity middleware
 app.use((0, helmet_1.default)());
 app.use((0, cors_1.default)({
-    origin: [CLIENT_URL, 'http://localhost:3000', 'http://localhost:3001'],
+    origin: [CLIENT_URL, 'http://localhost:3000', 'http://localhost:3001', 'https://webnestindia.netlify.app'],
     credentials: true,
 }));
 app.use(express_1.default.json({ limit: '10mb' }));
@@ -76,9 +82,15 @@ app.use('/api/upload', upload_1.default);
 app.use('/api/navigation', navigation_1.default);
 app.use('/api/footer', footer_1.default);
 app.use('/api/clients', clients_1.default);
-app.use('/api/why-us', why_us_1.default);
+app.use('/api/why-us', why_us_1.default); // legacy
+app.use('/api/why-us-page', whyUsPage_1.default);
 app.use('/api/seo', seo_1.default);
 app.use('/api/media', media_1.default);
+app.use('/api/about-page', aboutPage_1.default);
+app.use('/api/featured-project-section', featuredProjectSection_1.default);
+app.use('/api/pain-points', painPoints_1.default);
+app.use('/api/engineering-standards', engineeringStandards_1.default);
+app.use('/api/comparison-rows', comparisonRows_1.default);
 // Rate limiters for public forms
 const contactLimiter = (0, express_rate_limit_1.default)({
     windowMs: 15 * 60 * 1000,

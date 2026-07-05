@@ -34,14 +34,12 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const ProcessStepSchema = new mongoose_1.Schema({
+const EngineeringStandardSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
-    desc: { type: String, required: true },
-    icon: { type: String, default: 'Zap' },
+    description: { type: String, required: true },
+    icon: { type: String, default: 'Code' },
+    metric: { type: String, default: '' },
     order: { type: Number, default: 0 },
-    duration: { type: String },
-    deliverables: { type: [String], default: [] },
-    outcome: { type: String },
     isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
-exports.default = mongoose_1.default.models.ProcessStep || mongoose_1.default.model('ProcessStep', ProcessStepSchema);
+exports.default = mongoose_1.default.models.EngineeringStandard || mongoose_1.default.model('EngineeringStandard', EngineeringStandardSchema);

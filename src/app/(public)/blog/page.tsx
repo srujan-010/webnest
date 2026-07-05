@@ -7,15 +7,18 @@ import { ArrowRight, Calendar, User } from "lucide-react";
 
 import { getBlogs } from "@/services/api";
 import { useState, useEffect } from "react";
+import { usePreview } from "@/components/providers/PreviewProvider";
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [fetchedPosts, setFetchedPosts] = useState<any[]>([]);
 
   useEffect(() => {
     getBlogs().then(data => {
-      if (data) setPosts(data);
+      if (data) setFetchedPosts(data);
     });
   }, []);
+
+  const posts = usePreview(fetchedPosts);
 
   return (
     <main className="min-h-screen pt-32 pb-20 overflow-hidden bg-surface-0">

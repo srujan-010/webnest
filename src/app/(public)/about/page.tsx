@@ -10,6 +10,7 @@ import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { getAboutPage } from "@/services/api";
+import { usePreview } from "@/components/providers/PreviewProvider";
 
 const iconMap = { Target, Heart, Code2, Users, Rocket, Eye, Check };
 const getIcon = (iconName?: string) => {
@@ -18,15 +19,17 @@ const getIcon = (iconName?: string) => {
 };
 
 export default function AboutPage() {
-  const [data, setData] = useState<any>(null);
+  const [fetchedData, setFetchedData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getAboutPage().then((res) => {
-      if (res) setData(res);
+      if (res) setFetchedData(res);
       setLoading(false);
     });
   }, []);
+
+  const data = usePreview(fetchedData);
 
   if (loading) return <div className="min-h-screen bg-white" />;
   if (!data) return <div className="min-h-screen bg-white flex items-center justify-center">About Page Content Not Published Yet.</div>;

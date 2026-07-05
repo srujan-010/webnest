@@ -11,6 +11,7 @@ import { useAuth } from "./AuthProvider";
 import { ConfirmModal } from "./ConfirmModal";
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageUploader } from "./ImageUploader";
+import { LivePreview } from "./LivePreview";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
@@ -24,7 +25,7 @@ export interface Column {
 export interface FormField {
   key: string;
   label: string;
-  type: "text" | "textarea" | "richtext" | "image" | "select" | "multiselect" | "toggle" | "color" | "url" | "number" | "tags";
+  type: "text" | "textarea" | "richtext" | "image" | "select" | "multiselect" | "toggle" | "color" | "url" | "number" | "tags" | "json";
   required?: boolean;
   options?: { value: string; label: string }[];
   placeholder?: string;
@@ -39,6 +40,7 @@ interface CrudTableProps {
   formConfig: FormField[];
   reorderable?: boolean;
   publishable?: boolean;
+  previewUrlPath?: (item: any) => string;
   renderForm?: (props: { item?: any; onSave: (data: any) => void; onCancel: () => void }) => React.ReactNode;
   layout?: "table" | "grid";
 }
@@ -50,6 +52,7 @@ export function CrudTable({
   formConfig,
   reorderable = false,
   publishable = false,
+  previewUrlPath,
   renderForm,
   layout = "table"
 }: CrudTableProps) {
@@ -229,35 +232,19 @@ export function CrudTable({
 
   // Render Live Preview split view
   const renderLivePreview = () => {
-    const isService = endpoint === "services";
-    const name = formValues.name || formValues.title || "Untitled Document";
-    const desc = formValues.description || formValues.shortDesc || "No content summary written yet.";
-    const img = formValues.image || formValues.logo || "/logo.png";
-    const category = formValues.category || (isService ? "Core Capabilities" : "General");
+    let url = "/";
+    if (previewUrlPath) {
+       url = previewUrlPath(formValues);
+    } else {
+       // Fallbacks based on endpoint if not provided
+       if (endpoint === "blog") url = `/blog/${formValues.slug || ''}`;
+       else if (endpoint === "projects") url = `/portfolio/${formValues.slug || ''}`;
+       else if (endpoint === "services") url = `/services`;
+       else if (endpoint === "testimonials") url = `/`;
+    }
 
     return (
-      <div className="border border-zinc-800 rounded-xl bg-zinc-950 p-6 space-y-4 max-w-sm mx-auto shadow-2xl relative overflow-hidden select-none">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl" />
-        <div className="flex items-center justify-between">
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase">
-            Live Preview
-          </span>
-          <span className="text-[10px] text-zinc-500 font-semibold">{category}</span>
-        </div>
-        {img && img !== "/logo.png" && (
-          <div className="aspect-[16/10] w-full bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800">
-            <img src={img} alt="Preview" className="object-cover w-full h-full" />
-          </div>
-        )}
-        <div className="space-y-2">
-          <h4 className="font-extrabold text-sm text-white line-clamp-1">{name}</h4>
-          <p className="text-[11px] text-zinc-400 leading-relaxed line-clamp-3">{desc}</p>
-        </div>
-        <div className="pt-4 border-t border-zinc-900 flex justify-between items-center text-[10px] text-zinc-500">
-          <span>Target Score: 98%</span>
-          <span>WebNest Engine</span>
-        </div>
-      </div>
+      <LivePreview url={url} data={formValues} />
     );
   };
 
@@ -601,7 +588,7 @@ export function CrudTable({
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 220 }}
-              className="relative w-full max-w-4xl bg-zinc-950 border-l border-zinc-800 flex flex-col h-full shadow-2xl z-10"
+              className="relative w-full lg:max-w-6xl xl:max-w-7xl bg-zinc-950 border-l border-zinc-800 flex flex-col h-full shadow-2xl z-10"
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800/80 bg-zinc-950">
@@ -636,7 +623,7 @@ export function CrudTable({
                 </div>
 
                 {/* Right Live Preview Split Panel (Visible on Desktop) */}
-                <div className="hidden md:flex w-[350px] bg-zinc-950 p-6 flex-col justify-center border-l border-zinc-900">
+                <div className="hidden lg:flex lg:w-[450px] xl:w-[600px] p-6 flex-col justify-center border-l border-zinc-800 bg-zinc-950">
                   {renderLivePreview()}
                 </div>
               </div>

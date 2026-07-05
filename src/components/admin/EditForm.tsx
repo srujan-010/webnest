@@ -267,6 +267,14 @@ export function EditForm({ fields, defaultValues = {}, onSave, onCancel, onChang
               />
             )}
 
+            {/* JSON */}
+            {field.type === "json" && (
+              <JsonInput
+                value={values[field.key]}
+                onChange={(val) => set(field.key, val)}
+              />
+            )}
+
             {/* Hint */}
             {field.hint && <p className="text-[10px] text-zinc-500 mt-1.5 font-semibold tracking-wide">{field.hint}</p>}
 
@@ -333,6 +341,48 @@ function TagInput({ value, onChange, placeholder }: { value: string[]; onChange:
         placeholder={value.length === 0 ? placeholder : ""}
         className="flex-1 min-w-[120px] text-xs font-semibold outline-none bg-transparent text-white placeholder-zinc-600"
       />
+    </div>
+  );
+}
+
+// JSON input component
+function JsonInput({ value, onChange }: { value: any; onChange: (val: any) => void }) {
+  const [input, setInput] = useState(() => {
+    try {
+      return value ? JSON.stringify(value, null, 2) : "[\n  \n]";
+    } catch {
+      return "[\n  \n]";
+    }
+  });
+  const [error, setError] = useState<string | null>(null);
+
+  const handleBlur = () => {
+    try {
+      const parsed = JSON.parse(input);
+      onChange(parsed);
+      setError(null);
+      // Reformat
+      setInput(JSON.stringify(parsed, null, 2));
+    } catch (e: any) {
+      setError(e.message);
+    }
+  };
+
+  return (
+    <div className="space-y-1.5">
+      <textarea
+        suppressHydrationWarning
+        value={input}
+        onChange={(e) => {
+          setInput(e.target.value);
+          setError(null);
+        }}
+        onBlur={handleBlur}
+        rows={8}
+        className={`w-full px-3.5 py-2.5 text-xs font-mono border rounded-xl bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-white transition-all resize-y ${error ? 'border-red-500/50' : 'border-zinc-800 focus:border-indigo-500'}`}
+        placeholder="Enter valid JSON..."
+      />
+      {error && <p className="text-[10px] font-bold text-red-400">Invalid JSON: {error}</p>}
     </div>
   );
 }

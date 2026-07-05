@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useAuth } from "@/components/admin/AuthProvider";
-import { Save, Plus, Trash2, ChevronDown, ChevronUp, ExternalLink, Globe } from "lucide-react";
+import { Save, Plus, Trash2, ChevronDown, ChevronUp, Globe } from "lucide-react";
+import { LivePreview } from "@/components/admin/LivePreview";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
@@ -154,20 +155,14 @@ export default function AdminAboutPage() {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-8 pb-32">
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden">
+      <div className="w-full lg:w-1/2 overflow-y-auto p-6 space-y-8 pb-32">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-gray-200 shadow-sm sticky top-0 z-10">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">About Page CMS</h1>
           <p className="text-sm text-gray-500 mt-0.5">Edit, draft, and publish the complete About page.</p>
         </div>
         <div className="flex items-center gap-3">
-          <a
-            href="/admin/about/preview"
-            target="_blank"
-            className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-          >
-            <ExternalLink className="w-4 h-4" /> Preview Draft
-          </a>
           <button
             onClick={handleSaveDraft}
             disabled={saving || publishing}
@@ -416,6 +411,11 @@ export default function AdminAboutPage() {
         )}
       </div>
 
+      </div>
+
+      <div className="hidden lg:block w-1/2 bg-zinc-950 p-6 border-l border-zinc-800">
+        <LivePreview url="/about" data={data} />
+      </div>
     </div>
   );
 }

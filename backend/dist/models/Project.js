@@ -76,6 +76,46 @@ const ProjectSchema = new mongoose_1.Schema({
     testimonialRole: { type: String },
     testimonialCompany: { type: String },
     testimonialPhoto: { type: String },
+    // New Case Study Fields
+    role: { type: String },
+    timeline: { type: String },
+    businessGoal: { type: String },
+    targetAudience: { type: String },
+    industry: { type: String },
+    platform: { type: String },
+    clientProblems: { type: String },
+    businessPainPoints: { type: String },
+    technicalChallenges: { type: String },
+    oldWorkflow: { type: String },
+    limitations: { type: String },
+    solutionCards: [{ type: mongoose_1.Schema.Types.Mixed }],
+    featureHighlights: [{ type: mongoose_1.Schema.Types.Mixed }],
+    galleryItems: [{ type: mongoose_1.Schema.Types.Mixed }],
+    designProcess: [{ type: mongoose_1.Schema.Types.Mixed }],
+    techStackDetails: [{ type: mongoose_1.Schema.Types.Mixed }],
+    lessonsLearned: [{ type: mongoose_1.Schema.Types.Mixed }],
+    faqs: [{ type: mongoose_1.Schema.Types.Mixed }],
+    systemArchitecture: {
+        image: { type: String },
+        description: { type: String }
+    },
+    adminPanel: {
+        description: { type: String },
+        features: [{ type: String }],
+        screenshots: [{ type: String }]
+    },
+    performanceMetrics: {
+        performance: { type: Number },
+        seo: { type: Number },
+        accessibility: { type: Number },
+        bestPractices: { type: Number }
+    },
+    seo: {
+        metaTitle: { type: String },
+        metaDescription: { type: String },
+        keywords: { type: String }
+    },
+    mockupTablet: { type: String }
 }, { timestamps: true });
 ProjectSchema.pre('save', function () {
     // Sync title and name

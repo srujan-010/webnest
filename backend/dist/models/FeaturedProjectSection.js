@@ -34,14 +34,9 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const ProcessStepSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    desc: { type: String, required: true },
-    icon: { type: String, default: 'Zap' },
-    order: { type: Number, default: 0 },
-    duration: { type: String },
-    deliverables: { type: [String], default: [] },
-    outcome: { type: String },
-    isDeleted: { type: Boolean, default: false },
+const FeaturedProjectSectionSchema = new mongoose_1.Schema({
+    draft: { type: mongoose_1.Schema.Types.Mixed, default: {} },
+    published: { type: mongoose_1.Schema.Types.Mixed, default: {} },
+    lastPublishedAt: { type: Date }
 }, { timestamps: true });
-exports.default = mongoose_1.default.models.ProcessStep || mongoose_1.default.model('ProcessStep', ProcessStepSchema);
+exports.default = mongoose_1.default.models.FeaturedProjectSection || mongoose_1.default.model('FeaturedProjectSection', FeaturedProjectSectionSchema);

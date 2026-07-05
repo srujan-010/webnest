@@ -154,13 +154,18 @@ export const faqs = [
 
 export const projects = [
   {
-    name: "ShopPluse POS",
+    name: "ShopPulse POS",
     category: "Web Application",
     description: "A comprehensive point-of-sale and inventory management system designed for multi-store retail operations with real-time syncing.",
     features: ["Real-time Inventory", "Multi-store Support", "Advanced Analytics"],
     tech: ["Next.js", "Node.js", "MongoDB", "Socket.io"],
     color: "from-blue-500/20 to-cyan-500/20",
-    accent: "bg-blue-500"
+    accent: "bg-blue-500",
+    desktopImage: "/projects/shoppulse_pos.png",
+    mobileImage: "/projects/shoppulse_pos.png",
+    domain: "shoppulse.app",
+    caseStudyUrl: "/case-studies/shoppulse",
+    liveDemoUrl: "https://shoppulse.app"
   },
   {
     name: "Swastika Sarees",
@@ -169,7 +174,12 @@ export const projects = [
     features: ["Custom Shopping Cart", "Razorpay Integration", "Dynamic Search"],
     tech: ["React", "Express", "Redux", "Tailwind"],
     color: "from-rose-500/20 to-pink-500/20",
-    accent: "bg-rose-500"
+    accent: "bg-rose-500",
+    desktopImage: "/projects/swastika_sarees.png",
+    mobileImage: "/projects/swastika_sarees.png",
+    domain: "swastikasarees.com",
+    caseStudyUrl: "/case-studies/swastika-sarees",
+    liveDemoUrl: "https://swastikasarees.com"
   },
   {
     name: "Suryodaya Farms",
@@ -178,7 +188,12 @@ export const projects = [
     features: ["Storytelling UX", "Product Catalog", "Newsletter"],
     tech: ["Next.js", "Framer Motion", "Sanity CMS"],
     color: "from-green-500/20 to-emerald-500/20",
-    accent: "bg-green-500"
+    accent: "bg-green-500",
+    desktopImage: "/projects/suryodaya_farms.png",
+    mobileImage: "/projects/suryodaya_farms.png",
+    domain: "suryodayafarms.in",
+    caseStudyUrl: "/case-studies/suryodaya-farms",
+    liveDemoUrl: "https://suryodayafarms.in"
   },
   {
     name: "TSquadron",
@@ -187,18 +202,23 @@ export const projects = [
     features: ["Role-based Access", "Shift Scheduling", "Secure Messaging"],
     tech: ["React", "Firebase", "Tailwind"],
     color: "from-slate-600/20 to-slate-800/20",
-    accent: "bg-slate-700"
+    accent: "bg-slate-700",
+    desktopImage: "/projects/tsquadron.png",
+    mobileImage: "/projects/tsquadron.png",
+    domain: "tsquadron.com",
+    caseStudyUrl: "/case-studies/tsquadron",
+    liveDemoUrl: "https://tsquadron.com"
   }
 ];
 
 export const processSteps = [
-  { id: "01", title: "Discover", icon: "Search", desc: "Deep dive into your business goals, target audience, and technical requirements." },
-  { id: "02", title: "Plan", icon: "PenTool", desc: "Strategic blueprinting, architecture design, and project roadmapping." },
-  { id: "03", title: "Design", icon: "Layout", desc: "Crafting bespoke, user-centric wireframes and high-fidelity UI designs." },
-  { id: "04", title: "Develop", icon: "Code2", desc: "Agile engineering using modern, scalable tech stacks and clean code." },
-  { id: "05", title: "Test", icon: "TestTube", desc: "Rigorous QA, performance profiling, and security auditing." },
-  { id: "06", title: "Launch", icon: "Rocket", desc: "Seamless deployment to production environments and zero-downtime go-live." },
-  { id: "07", title: "Support", icon: "Headphones", desc: "Continuous monitoring, maintenance, and iterative feature enhancements." },
+  { id: "01", title: "Discover", icon: "Search", desc: "Deep dive into your business goals, target audience, and technical requirements.", duration: "1-2 Weeks", deliverables: ["Business Analysis", "User Research", "Competitor Analysis"], outcome: "Complete Product Blueprint" },
+  { id: "02", title: "Plan", icon: "PenTool", desc: "Strategic blueprinting, architecture design, and project roadmapping.", duration: "1 Week", deliverables: ["System Architecture", "Tech Stack Selection", "Sprint Roadmap"], outcome: "Technical Architecture" },
+  { id: "03", title: "Design", icon: "Layout", desc: "Crafting bespoke, user-centric wireframes and high-fidelity UI designs.", duration: "2-3 Weeks", deliverables: ["Wireframes", "High-Fidelity UI", "Design System"], outcome: "Interactive Prototype" },
+  { id: "04", title: "Develop", icon: "Code2", desc: "Agile engineering using modern, scalable tech stacks and clean code.", duration: "4-8 Weeks", deliverables: ["Frontend Code", "Backend API", "Database Setup"], outcome: "Production Build" },
+  { id: "05", title: "Test", icon: "TestTube", desc: "Rigorous QA, performance profiling, and security auditing.", duration: "1-2 Weeks", deliverables: ["Unit Tests", "E2E Testing", "Security Audit"], outcome: "Stable Release Candidate" },
+  { id: "06", title: "Launch", icon: "Rocket", desc: "Seamless deployment to production environments and zero-downtime go-live.", duration: "1 Week", deliverables: ["CI/CD Pipeline", "Production Deployment", "DNS Setup"], outcome: "Live Product" },
+  { id: "07", title: "Support", icon: "Headphones", desc: "Continuous monitoring, maintenance, and iterative feature enhancements.", duration: "Ongoing", deliverables: ["Performance Monitoring", "Bug Fixes", "Feature Updates"], outcome: "Optimized Scaling" },
 ];
 
 export const techStack = [
@@ -272,7 +292,7 @@ export const stats = [
 export const navLinks = [
   { name: "About", href: "/about" },
   { name: "Process", href: "/process" },
-  { name: "Technologies", href: "/technologies" },
+  { name: "Why Us", href: "/why-us" },
   { name: "Blog", href: "/blog" },
 ];
 

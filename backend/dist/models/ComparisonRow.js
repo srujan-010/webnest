@@ -34,14 +34,12 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const ProcessStepSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    desc: { type: String, required: true },
-    icon: { type: String, default: 'Zap' },
+const ComparisonRowSchema = new mongoose_1.Schema({
+    criteria: { type: String, required: true },
+    typicalAgencyText: { type: String, required: true },
+    webnestText: { type: String, required: true },
     order: { type: Number, default: 0 },
-    duration: { type: String },
-    deliverables: { type: [String], default: [] },
-    outcome: { type: String },
+    isActive: { type: Boolean, default: true },
     isDeleted: { type: Boolean, default: false },
 }, { timestamps: true });
-exports.default = mongoose_1.default.models.ProcessStep || mongoose_1.default.model('ProcessStep', ProcessStepSchema);
+exports.default = mongoose_1.default.models.ComparisonRow || mongoose_1.default.model('ComparisonRow', ComparisonRowSchema);

@@ -30,11 +30,16 @@ import navigationRoutes from './routes/navigation';
 import footerRoutes from './routes/footer';
 import clientsRoutes from './routes/clients';
 import whyUsRoutes from './routes/why-us';
+import whyUsPageRoutes from './routes/whyUsPage';
 import seoRoutes from './routes/seo';
 import mediaRoutes from './routes/media';
 import contactRoutes from './routes/contact';
 import newsletterRoutes from './routes/newsletter';
 import aboutPageRoutes from './routes/aboutPage';
+import featuredProjectSectionRoutes from './routes/featuredProjectSection';
+import painPointsRoutes from './routes/painPoints';
+import engineeringStandardsRoutes from './routes/engineeringStandards';
+import comparisonRowsRoutes from './routes/comparisonRows';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -80,10 +85,15 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/navigation', navigationRoutes);
 app.use('/api/footer', footerRoutes);
 app.use('/api/clients', clientsRoutes);
-app.use('/api/why-us', whyUsRoutes);
+app.use('/api/why-us', whyUsRoutes); // legacy
+app.use('/api/why-us-page', whyUsPageRoutes);
 app.use('/api/seo', seoRoutes);
 app.use('/api/media', mediaRoutes);
 app.use('/api/about-page', aboutPageRoutes);
+app.use('/api/featured-project-section', featuredProjectSectionRoutes);
+app.use('/api/pain-points', painPointsRoutes);
+app.use('/api/engineering-standards', engineeringStandardsRoutes);
+app.use('/api/comparison-rows', comparisonRowsRoutes);
 // Rate limiters for public forms
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
